@@ -72,7 +72,7 @@ def zig_zag_concatenate(matrix):
             if col % 2 == 0:
                 concatenate_string += matrix[row][col]
             else:
-                concatenate_string += matrix[row][col][::-1]
+                concatenate_string += matrix[len(matrix) - 1 - row][col]
     return concatenate_string
 
         
