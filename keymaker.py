@@ -53,7 +53,11 @@ def create_matrix(word1, word2):
     >>> create_matrix('mamas', 'papas')
     ['bpbph', 'mamas', 'bpbph', 'mamas', 'esesk']
     """
-    pass
+    abc = string.ascii_lowercase
+    matrix = []
+    for letter in word2:
+        matrix.append(shift_characters(word1, abc.index(letter)))
+    return matrix 
 
 
 def zig_zag_concatenate(matrix):
