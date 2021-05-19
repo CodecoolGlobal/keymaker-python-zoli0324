@@ -108,9 +108,9 @@ def remove_odd_blocks(word, block_length):
     prev_index = 0
     new_string = ""
 
-    for letter in range(block_length, len(word), block_length):
-        cutted_word.append(word[prev_index: letter])
-        prev_index = letter
+    for index in range(block_length, len(word), block_length):
+        cutted_word.append(word[prev_index: index])
+        prev_index = index
     cutted_word.append(word[prev_index:])
     
     for index in range(len(cutted_word)):
