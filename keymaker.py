@@ -9,10 +9,10 @@ def shift_characters(word, shift):
     abc = string.ascii_lowercase
     new_letter = ""
     while  shift >= len(abc):
-        shift = shift - len(abc)
+        shift -= len(abc)
 
     for letter in word:
-        if abc.index(letter) + shift <= len(abc):
+        if abc.index(letter) + shift < len(abc):
             new_letter += abc[abc.index(letter) + shift]
         else:
             new_letter += abc[(abc.index(letter) + shift) - len(abc)]
@@ -27,7 +27,7 @@ def pad_up_to(word, shift, n):
     pad_word = ""
     pad_word += word
     while len(pad_word) < n:
-        pad_word += shift_characters(pad_word[-3:], shift)
+        pad_word += shift_characters(pad_word[-len(word):], shift)
     return pad_word[0:n]
 
 
@@ -73,10 +73,7 @@ def zig_zag_concatenate(matrix):
                 concatenate_string += matrix[row][col]
             else:
                 concatenate_string += matrix[len(matrix) - 1 - row][col]
-    return concatenate_string
-
-        
-print(zig_zag_concatenate(['abc', 'def', 'ghi', 'jkl']))   
+    return concatenate_string 
 
 
 def rotate_right(word, n):
@@ -84,7 +81,10 @@ def rotate_right(word, n):
     >>> rotate_right('abcdefgh', 3)
     'fghabcde'
     """
-    pass
+    while n > len(word):
+        n -= len(word)
+
+    return word[-n:] + word[:-n]
 
 
 def get_square_index_chars(word):
@@ -92,7 +92,11 @@ def get_square_index_chars(word):
     >>> get_square_index_chars('abcdefghijklm')
     'abej'
     """
-    pass
+    index_chars = ""
+    for index in range(len(word)):
+        if pow(index, 2) < len(word):
+            index_chars += word[pow(index, 2)]
+    return index_chars
 
 
 def remove_odd_blocks(word, block_length):
@@ -100,7 +104,19 @@ def remove_odd_blocks(word, block_length):
     >>> remove_odd_blocks('abcdefghijklm', 3)
     'abcghim'
     """
-    pass
+    cutted_word = []
+    prev_index = 0
+    new_string = ""
+
+    for letter in range(block_length, len(word), block_length):
+        cutted_word.append(word[prev_index: letter])
+        prev_index = letter
+    cutted_word.append(word[prev_index:])
+    
+    for index in range(len(cutted_word)):
+        if index % 2 == 0:
+            new_string += cutted_word[index]
+    return new_string
 
 
 def reduce_to_fixed(word, n):
@@ -108,7 +124,11 @@ def reduce_to_fixed(word, n):
     >>> reduce_to_fixed('abcdefghijklm', 6)
     'bafedc'
     """
-    pass
+    cutted_word = word[:n]
+    new_string = cutted_word[n // 3:] + cutted_word[:n // 3]
+    return new_string[::-1]
+    
+
 
 
 def hash_it(word):
